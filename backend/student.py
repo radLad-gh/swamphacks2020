@@ -1,4 +1,4 @@
-class classData:
+class classData: //test comment
     def __init__(self, name, category, credits, prereq, coreq):
         self.name = name
         self.category = category
