@@ -20,13 +20,14 @@
         <a href="http://scripteden.com/download/eden-ui/" target="_blank" class="btn-social btn-twitter"><i class="fa fa-twitter"></i></a>
         <a href="http://scripteden.com/download/eden-ui/" target="_blank" class="btn-social btn-github"><i class="fa fa-github-alt"></i></a>
     </div>
-    <form id="login" class="input-group">
-        <input type="text" class="input-field" placeholder="User ID" required>
+    <form action = "" method = "post" id="login" class="input-group">
+        <p class="input-field" placeholder = "User ID">{{form.username(size=32)}}</p>
         <input type="text" class="input-field" placeholder="Enter Password" required>
+        <p class="input-field" placeholder= "User ID">{{form.password(size=32)}}</p>
         <input type="checkbox" class="check-box"><span>Remember Password</span>
         <button type="submit" class="submit-btn">Log In</button>
     </form>
-    <form id="register" class="input-group">
+    <form action = "" method = "post" id="register" class="input-group">
         <input type="text" class="input-field" placeholder="Enter a username" required>
         <input type="email" class="input-field" placeholder="Email" required>
         <input type="checkbox" class="check-box"><span>I agree to the terms and conditions</span>
