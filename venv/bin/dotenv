@@ -1,8 +1,10 @@
-#!/home/mahan/Programming/mlh-hackathon-flask-starter/venv/bin/python
+#!/home/mahan/Programming/swamphacks2020/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
+
 from dotenv.cli import cli
+
 if __name__ == '__main__':
-    sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
+    sys.argv[0] = re.sub(r'(-script\.pyw?|\.exe)?$', '', sys.argv[0])
     sys.exit(cli())
