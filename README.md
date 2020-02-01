@@ -1,1 +1,1 @@
-# swamphacks2020 project
+# Reggie | Your Personal Registrar

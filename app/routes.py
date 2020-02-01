@@ -1,5 +1,6 @@
 from flask import render_template
 from flask import redirect
+from flask import url_for
 from app import app
 from app.forms import LoginForm
 
@@ -14,4 +15,4 @@ def index():
 
 def login():
     form = LoginForm()
-    return render_template("login.html", title = "Sign in", form = form)
+    return render_template("Reggie.html")
