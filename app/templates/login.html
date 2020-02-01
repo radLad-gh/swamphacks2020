@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Reggie | Your Personal Registrar</title>
+    <meta name="description" content="Log In Form Page">
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css')}}">
+</head>
+
+<body>
+<div class="form-box">
+    <div class="button-box">
+        <div id="btn"></div>
+        <button type="button" class="toggle-btn" onclick="login()">Log In</button>
+        <button type="button" class="toggle-btn" onclick="register()">Register</button>
+    </div>
+    <form action = "" method = "post" id="login" class="input-group">
+        <p>{{form.username(class_="input-field",size=32, placeholder="Enter your username")}}</p>
+        <p>{{form.password(class_="input-field",
+        size=32, placeholder = "Enter your password")}}
+        </p>
+        <p>{{form.submit(class_="submit-btn")}}</p>
+    </form>
+    <form action = "" method = "post" id="register" class="input-group">
+        <p>{{form.registername(class_="input-field",size=32, placeholder="Enter a username")}}</p>
+        <p>{{form.registeremail(class_="input-field",
+        size=32, placeholder = "Enter an email")}}
+        </p>
+        <p>{{form.submit(class_="submit-btn")}}</p>
+    </form>
+
+</div>
+
+    <script>
+    
+    
+    var x = document.getElementById("login");
+    var y = document.getElementById("register");
+    var z = document.getElementById("btn");
+
+    function register(){
+        x.style.left = "-450px";
+        y.style.left = "50px";
+        z.style.left = "110px";
+    }
+    function login(){
+        x.style.left = "50px";
+        y.style.left = "450px";
+        z.style.left = "0px";
+    }
+    
+    </script>
+</body>
+</html>

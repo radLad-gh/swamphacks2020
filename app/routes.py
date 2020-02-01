@@ -6,13 +6,13 @@ from app.forms import LoginForm
 
 
 @app.route("/")
-@app.route("/index")
-
 def index():
-    return redirect("/login")
+    return render_template("Reggie.html")
+
 
 @app.route("/login", methods = ["GET", "POST"])
-
 def login():
     form = LoginForm()
-    return render_template("Reggie.html", form=form)
+    if form.validate_on_submit():
+        return         
+    return render_template("login.html", form=form)
