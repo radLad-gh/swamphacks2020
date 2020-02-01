@@ -21,9 +21,10 @@
         <a href="http://scripteden.com/download/eden-ui/" target="_blank" class="btn-social btn-github"><i class="fa fa-github-alt"></i></a>
     </div>
     <form action = "" method = "post" id="login" class="input-group">
+        <p class="input-field">User ID:</p>
         <p class="input-field" placeholder = "User ID">{{form.username(size=32)}}</p>
-        <input type="text" class="input-field" placeholder="Enter Password" required>
-        <p class="input-field" placeholder= "User ID">{{form.password(size=32)}}</p>
+        <p class="input-field">Password:</p>
+        <p class="input-field" placeholder = "Password">{{form.password(size=32)}}</p>
         <input type="checkbox" class="check-box"><span>Remember Password</span>
         <button type="submit" class="submit-btn">Log In</button>
     </form>
