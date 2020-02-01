@@ -2,13 +2,12 @@
     margin: 0;
     padding: 0;
 }
-.background{
-    height: 100%;
-    width: 100%;
-    background-image: linear-gradient(to bottom right, #008080,#000080);
-    background-position:center;
+body {
+    background: linear-gradient(to bottom right, #008080,#000080);
+    background-repeat: no-repeat;
+    background-position: center;
     background-size: cover;
-    position: absolute;
+    min-height: 100vh;
 }
 .form-box{
     width:380px;
@@ -84,6 +83,7 @@
     background-color: #689cd0;
 }
 */
+
 .input-group{
     top: 180px;
     position: absolute;
@@ -106,7 +106,8 @@
     padding: 10px 30px;
     cursor: pointer;
     display: block;
-    margin: auto;
+    margin: 45px 0 0 15px;
+    position: center;
     background: linear-gradient(to bottom right, #008080,#000080);
     border: 0;
     outline: none;
@@ -129,3 +130,4 @@ span{
 #register{
     left: 450px;
 }
+

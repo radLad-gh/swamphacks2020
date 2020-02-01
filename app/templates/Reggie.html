@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,34 +8,29 @@
     <meta name="description" content="Log In Form Page">
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css')}}">
 </head>
+
 <body>
-    <div class="background">
 <div class="form-box">
     <div class="button-box">
         <div id="btn"></div>
         <button type="button" class="toggle-btn" onclick="login()">Log In</button>
         <button type="button" class="toggle-btn" onclick="register()">Register</button>
     </div>
-    <div class="social-icons">
-        <a href="http://scripteden.com/download/eden-ui/" target="_blank" class="btn-social btn-facebook"><i class="fa fa-facebook"></i></a>
-        <a href="http://scripteden.com/download/eden-ui/" target="_blank" class="btn-social btn-twitter"><i class="fa fa-twitter"></i></a>
-        <a href="http://scripteden.com/download/eden-ui/" target="_blank" class="btn-social btn-github"><i class="fa fa-github-alt"></i></a>
-    </div>
     <form action = "" method = "post" id="login" class="input-group">
-        <p class="input-field">User ID:</p>
-        <p class="input-field" placeholder = "User ID">{{form.username(size=32)}}</p>
-        <p class="input-field">Password:</p>
-        <p class="input-field" placeholder = "Password">{{form.password(size=32)}}</p>
-        <input type="checkbox" class="check-box"><span>Remember Password</span>
-        <button type="submit" class="submit-btn">Log In</button>
+        <p>{{form.username(class_="input-field",size=32, placeholder="Enter your username")}}</p>
+        <p>{{form.password(class_="input-field",
+        size=32, placeholder = "Enter your password")}}
+        </p>
+        <p>{{form.submit(class_="submit-btn")}}</p>
     </form>
     <form action = "" method = "post" id="register" class="input-group">
         <input type="text" class="input-field" placeholder="Enter a username" required>
         <input type="email" class="input-field" placeholder="Email" required>
-        <input type="checkbox" class="check-box"><span>I agree to the terms and conditions</span>
         <button type="submit" class="submit-btn">Register</button>
     </form>
+
 </div>
+
     <script>
     
     
@@ -50,7 +46,7 @@
     function login(){
         x.style.left = "50px";
         y.style.left = "450px";
-        z.style.left = "110px";
+        z.style.left = "0px";
     }
     
     </script>
