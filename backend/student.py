@@ -62,13 +62,12 @@ conn = sqlite3.connect('userDatabase.sqlite')
 cursor = conn.cursor()
 print("Opened database successfully")
 for row in cursor.execute("SELECT courses, credits, prereqs, coreqs from courses"):
-    if row[0].startswith('COP'):
-        print("Course = ", row[0], "Credits = ", row[1], "Prereqs = ", row[2], "Coreqs = ", row[3])
-        classList.append(classData(row[0], 'Programming', row[1], row[2], row[3]))
+    print("Course = ", row[0], "Credits = ", row[1], "Prereqs = ", row[2], "Coreqs = ", row[3])
+    classList.append(classData(row[0], 'Programming', row[1], [row[2]], row[3]))
 conn.commit()
 conn.close()
 
-grade = float(input("Enter your grade: ")) #testing input for grade
+grade = 4.0 #testing input for grade
 
 addClass(grade, myClass_01, myStudent_01)
 
@@ -116,9 +115,7 @@ def pathToCourse(c=classData): #Recursive function that finds all prerequisites 
                 pathToCourse(i)
             else:
                 continue
-pathToCourse(classList[8])
-print(classList[8].name)
-print(classList[8].prereq)
+pathToCourse(classList[47])
 print("prereqlist")
 for i in range(len(prereqList)):
     print(prereqList[i].name)
@@ -152,7 +149,8 @@ def clearNextClassesList():
     global nextClasses
     nextClasses = []
 
-nextSteps(myClass_02)
+print("Class 46: " + classList[53].name + " with prereq's: "+ classList[53].prereq[0])
+nextSteps(classList[53])
 print(nextClassesCounter)
 
 for i in range(len(nextClasses)):
