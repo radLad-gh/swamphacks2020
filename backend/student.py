@@ -10,8 +10,9 @@ Available functions:
     nextSteps
     clearNextClassesList
 """
+import sqlite3
 
-class classData: #Constructor for classes
+class classData(object): #Constructor for classes
     def __init__(self, name, category, credits, prereq, coreq):
         self.name = name
         self.category = category
@@ -55,6 +56,17 @@ def addClass(grade, c=classData, s=Student): #adds classData object to class arr
     c.grade = grade
     s.classes.append(c)
 
+classList = []
+
+conn = sqlite3.connect('userDatabase.sqlite')
+cursor = conn.cursor()
+print("Opened database successfully")
+for row in cursor.execute("SELECT courses, credits, prereqs, coreqs from courses"):
+    if row[0].startswith('COP'):
+        print("Course = ", row[0], "Credits = ", row[1], "Prereqs = ", row[2], "Coreqs = ", row[3])
+        classList.append(classData(row[0], 'Programming', row[1], row[2], row[3]))
+conn.commit()
+conn.close()
 
 grade = float(input("Enter your grade: ")) #testing input for grade
 
@@ -78,8 +90,6 @@ addClass(4.0, myClass_02, myStudent_01)
 addClass(3.0, myClass_03, myStudent_01)
 addClass(3.0, myClass_04, myStudent_01)
 print("Math Avg: " + str(myStudent_01.getAvg("Math")))
-
-classList = [myClass_01, myClass_02, myClass_03, myClass_04] #Temporary class list to test instead of database
 
 def hasPrereq(c=classData):
     if c.prereq == '':
@@ -106,7 +116,12 @@ def pathToCourse(c=classData): #Recursive function that finds all prerequisites 
                 pathToCourse(i)
             else:
                 continue
-pathToCourse(myClass_04)
+pathToCourse(classList[8])
+print(classList[8].name)
+print(classList[8].prereq)
+print("prereqlist")
+for i in range(len(prereqList)):
+    print(prereqList[i].name)
 
 def clearPrereqList():
     global prereqList
@@ -143,5 +158,3 @@ print(nextClassesCounter)
 for i in range(len(nextClasses)):
     print(nextClasses[i].name)
 
-for i in range(len(prereqList)):
-    print(prereqList[i].name)

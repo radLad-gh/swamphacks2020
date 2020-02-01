@@ -1,6 +1,5 @@
 import student
 
-
 def makeSchedule(s=student.Student):
     print(
         "Rank the following 1-3, with 3 being most important to you: Course Difficulty, Past Success in Subject, "
