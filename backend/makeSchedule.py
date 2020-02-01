@@ -31,7 +31,7 @@ def makeSchedule(s=student.Student):
     i = 0
     schedule = []
 
-    while curCreditNum < creditNumHigh and i < range(len(courseList)):
+    while curCreditNum < creditNumHigh and i < len(courseList):
         if curCreditNum + courseList[i].credits > creditNumHigh:
             i += 1
             continue
@@ -41,6 +41,8 @@ def makeSchedule(s=student.Student):
             updateCourseRanking(courseList[i], courseList)
             i += 1
     return schedule
+
+makeSchedule(student.myStudent_01)
 
 def updateCourseRanking(course, courseList):
     for c in courseList:
