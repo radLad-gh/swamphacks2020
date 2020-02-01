@@ -11,8 +11,8 @@ from app.forms import LoginForm
 def index():
     return redirect("/login")
 
-@app.route("/login")
+@app.route("/login", methods = ["GET", "POST"])
 
 def login():
     form = LoginForm()
-    return render_template("Reggie.html")
+    return render_template("Reggie.html", form=form)
