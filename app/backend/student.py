@@ -10,9 +10,14 @@ Available functions:
     nextSteps
     clearNextClassesList
 """
+<<<<<<< HEAD
 import sqlite3
 
 class classData(object): #Constructor for classes
+=======
+
+class classData: #Constructor for classes
+>>>>>>> edd672d00aa643d527492e59e1628e6b2de7bd2f
     def __init__(self, name, category, credits, prereq, coreq):
         self.name = name
         self.category = category
@@ -56,6 +61,7 @@ def addClass(grade, c=classData, s=Student): #adds classData object to class arr
     c.grade = grade
     s.classes.append(c)
 
+<<<<<<< HEAD
 classList = []
 
 conn = sqlite3.connect('userDatabase.sqlite')
@@ -67,6 +73,8 @@ for row in cursor.execute("SELECT courses, credits, prereqs, coreqs from courses
         classList.append(classData(row[0], 'Programming', row[1], row[2], row[3]))
 conn.commit()
 conn.close()
+=======
+>>>>>>> edd672d00aa643d527492e59e1628e6b2de7bd2f
 
 grade = float(input("Enter your grade: ")) #testing input for grade
 
@@ -91,6 +99,11 @@ addClass(3.0, myClass_03, myStudent_01)
 addClass(3.0, myClass_04, myStudent_01)
 print("Math Avg: " + str(myStudent_01.getAvg("Math")))
 
+<<<<<<< HEAD
+=======
+classList = [myClass_01, myClass_02, myClass_03, myClass_04] #Temporary class list to test instead of database
+
+>>>>>>> edd672d00aa643d527492e59e1628e6b2de7bd2f
 def hasPrereq(c=classData):
     if c.prereq == '':
         return False
@@ -116,12 +129,16 @@ def pathToCourse(c=classData): #Recursive function that finds all prerequisites 
                 pathToCourse(i)
             else:
                 continue
+<<<<<<< HEAD
 pathToCourse(classList[8])
 print(classList[8].name)
 print(classList[8].prereq)
 print("prereqlist")
 for i in range(len(prereqList)):
     print(prereqList[i].name)
+=======
+pathToCourse(myClass_04)
+>>>>>>> edd672d00aa643d527492e59e1628e6b2de7bd2f
 
 def clearPrereqList():
     global prereqList
@@ -158,3 +175,8 @@ print(nextClassesCounter)
 for i in range(len(nextClasses)):
     print(nextClasses[i].name)
 
+<<<<<<< HEAD
+=======
+for i in range(len(prereqList)):
+    print(prereqList[i].name)
+>>>>>>> edd672d00aa643d527492e59e1628e6b2de7bd2f
