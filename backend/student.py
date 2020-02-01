@@ -20,6 +20,7 @@ class classData: #Constructor for classes
         self.coreq = coreq
         self.grade = 0
         self.difficulty = None
+        self.curRank = 0
 
 myClass_01 = classData('COP3502', 'Programming', 3, 'MAC2311', '')
 print(myClass_01.name)
@@ -124,7 +125,6 @@ def nextSteps(c=classData): #Recursive function that adds next classes to an arr
             if firstRun == False:
                 for j in nextClasses:
                     if j.name == checkClass:
-                        print("j.name: " + j.name)
                         continue
                     else:
                         nextClasses.append(next_class)
