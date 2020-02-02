@@ -190,19 +190,11 @@ nextClassesCounter = 0
 firstRun = True #Boolean for nextSteps
 
 def nextClass(_classCheck, _classInput, _next_class):
-    print("hello")
-    print(len(_classInput))
     if len(_classInput) == 0:
-        print("ADDED FIRST", _next_class.name)
         nextClasses.append(_next_class)
     else:
         for j in _classInput:
-            print("J", j.name)
-            if isinstance(_classInput, classData):
-                print("HERE", j.name, _classCheck)
-
             if (j.name[:3] + j.name[4:]) == (_classCheck[:3] + _classCheck[4:]):
-                print("CONTINUE")
                 continue
             else:
                 nextClasses.append(_next_class)
@@ -255,8 +247,8 @@ def clearNextClassesList():
     global nextClasses
     nextClasses = []
 
-print("TEST CASE: " + str(classList[47].name))
-nextSteps(classList[50])
+print("TEST CASE: " + str(classList[46].name))
+nextSteps(classList[46])
 
 count = 0
 while count < len(nextClasses):
