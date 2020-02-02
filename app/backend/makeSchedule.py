@@ -1,9 +1,8 @@
-import student
+from .student import Student
 
-
-def makeSchedule(s=student.Student):
+def makeSchedule(s=Student):
     choice = input("Would you like to create a schedule for you with default settings or would you like to input "
-                       "manual settings? ")
+                       "custom settings? ")
 
     if choice == "manual":
 
@@ -83,6 +82,34 @@ def updateCourseRanking(course, courseList):
             c.curRank -= 2 * (c.difficulty - course.difficulty)
     courseList.sort(key=lambda x: x.curRank, reverse=True)
 
+def removeClass(schedule, courseList):
+    print("Current Schedule:")
+    for c in schedule:
+        print(c.name)
+    choice = input("What class would you like to remove? (in format XXX ####")
+    for c in schedule:
+        if choice == c.name:
+            courseList.append(c)
+            schedule.remove(c)
+            break
+    print("New Schedule:")
+    for c in schedule:
+        print(c.name)
+
+def addClass(schedule, courseList):
+    print("Current Schedule:")
+    for c in schedule:
+        print(c.name)
+    choice = input("What class would you like to add? (in format XXX ####")
+    for c in courseList:
+        if choice == c.name:
+            schedule.append(c)
+            courseList.remove(c)
+            break
+    print("New Schedule:")
+    for c in schedule:
+        print(c.name)
+
 def changeSchedule(schedule, courseList):
     print("Current Schedule:")
     for c in schedule:
@@ -95,8 +122,11 @@ def changeSchedule(schedule, courseList):
             break
     choice2 = input("What class would you like to add? (in format XXX ####")
     for c in courseList:
-        if choice == c.name:
+        if choice2 == c.name:
             schedule.append(c)
             courseList.remove(c)
             break
+    print("New Schedule:")
+    for c in schedule:
+        print(c.name)
 
