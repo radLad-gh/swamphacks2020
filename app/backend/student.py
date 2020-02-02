@@ -64,7 +64,7 @@ cursor = conn.cursor()
 print("Opened database successfully")
 c = 0
 for row in cursor.execute("SELECT courses, credits, prereqs, coreqs from courses"):
-    print("Course = ", row[0], "Credits = ", row[1], "Prereqs = ", row[2], "Coreqs = ", row[3])
+    #print("Course = ", row[0], "Credits = ", row[1], "Prereqs = ", row[2], "Coreqs = ", row[3])
     classList.append(classData(row[0], 'Programming', row[1], [row[2]], row[3]))
     c += 1
 conn.commit()
@@ -186,15 +186,14 @@ def clearPrereqList():
 
 nextClasses = [] #Temporary array for classes that open up after taking a certain class
 nextClassesCounter = 0
+
 firstRun = True #Boolean for nextSteps
+
 def nextClass(_classCheck, _classInput, _next_class):
-    print("did i get here")
     for j in _classInput:
         if (j.name[:3] + j.name[4:]) == (_classCheck[:3] + _classCheck[4:]):
-            print("there already")
             continue
         else:
-            print("added")
             nextClasses.append(_next_class)
             break
 
@@ -202,14 +201,11 @@ def nextSteps(c=classData): #Recursive function that adds next classes to an arr
     checkClass = c.name
     c = 0
     for i in classList:
-        print(str(c) + ". I name: " + str(i.name))
         c += 1
         if isinstance(i.prereq, list):
             for j in i.prereq:
-                print("I: " + str(j))
                 if isinstance(j, list):
                     for m in j:
-                        print("M: " + m)
                         if m == checkClass:
                             nextClass(checkClass, nextClasses, m)
                         else:
@@ -218,18 +214,16 @@ def nextSteps(c=classData): #Recursive function that adds next classes to an arr
                     temp1 =  j[:3] + j[4:]
                     temp2 = checkClass[:3] + checkClass[4:]
 
-                    print("right else", temp1, "checking", temp2)
                     if temp1 == temp2:
-                        print("they equal")
                         nextClass(checkClass, nextClasses, i)
                     else:
-                        print("they not equal")
                         continue
         elif i.prereq == checkClass:
             next_class = i
 
             global nextClassesCounter
             nextClassesCounter += 1
+            global firstRun
             if firstRun == False:
                 #nextClass(checkClass, nextClasses, next_class)
                 for j in nextClasses:
@@ -240,24 +234,29 @@ def nextSteps(c=classData): #Recursive function that adds next classes to an arr
                         break
             else:
                 nextClasses.append(next_class)
-            print("TEST CHANGE: " + str(next_class.name))
+            firstRun = True
             nextSteps(next_class)
 
 def clearNextClassesList():
     global nextClasses
     nextClasses = []
 
-print("TEST CASE: " + str(classList[48].name))
-nextSteps(classList[48])
-print("NEXT CLASSES: " + str(nextClasses[7]))
-print(nextClassesCounter)
+print("TEST CASE: " + str(classList[45].name))
+nextSteps(classList[45])
 
-count = 0
-while count < 17:
-    print(count)
-    if isinstance(nextClasses[count], str):
-        print(nextClasses[count])
-    else:
-        print(nextClasses[count].name)
-    count += 1
-
+"""
+count1 = 0
+while count1 < len(classList):
+    nextSteps(classList[count1])
+    count = 0
+    print("NEW NEXT STEPS:", count1, classList[count1].name)
+    while count < len(nextClasses):
+        print(count + 1)
+        if isinstance(nextClasses[count], str):
+            print(nextClasses[count])
+        else:
+            print(nextClasses[count].name)
+        count += 1
+    nextClasses = []
+    count1 += 1
+"""
