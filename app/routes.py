@@ -8,7 +8,7 @@ import sqlite3
 
 @app.route("/")
 def index():
-    return render_template("Reggie.html")
+    return render_template("home.html")
 
 
 @app.route("/login", methods = ["GET", "POST"])
