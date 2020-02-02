@@ -198,8 +198,7 @@ def nextClass(_classCheck, _classInput, _next_class):
                 continue
             else:
                 nextClasses.append(_next_class)
-                print("Next class", _classInput[0])
-                print("BREAK")
+
                 break
 
 def nextSteps(c=classData): #Recursive function that adds next classes to an array
@@ -240,7 +239,6 @@ def nextSteps(c=classData): #Recursive function that adds next classes to an arr
             else:
                 nextClasses.append(next_class)
             firstRun = True
-            print("NEXT CASE:", next_class.name)
             nextSteps(next_class)
 
 def clearNextClassesList():
