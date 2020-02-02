@@ -2,9 +2,10 @@ import student
 
 
 def makeSchedule(s=student.Student):
-    choice = int(input("Would you like to create a schedule for you with default settings or would you like to input "
-                       "manual settings?"))
-    if choice == "default":
+    choice = input("Would you like to create a schedule for you with default settings or would you like to input "
+                       "manual settings?")
+    
+    if choice == "manual":
 
         print(
             "Rank the following 3 options on a 1-5 scale, with 1 being 'I strongly disagree' and 5 being 'I strongly "
@@ -16,7 +17,7 @@ def makeSchedule(s=student.Student):
         pastSuccessIndex = int(input("'I would like to take courses in subjects I have had success with in the past': "))
         bottleneckIndex = int(input("'I would like to take courses that are prerequisites for many other courses': "))
 
-    elif choice == "manual":
+    elif choice == "default":
         totalCreditsTaken = 0
         for c in s.classes:
             totalCreditsTaken += c.credits
