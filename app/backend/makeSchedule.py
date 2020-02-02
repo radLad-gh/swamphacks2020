@@ -102,27 +102,48 @@ def makeSchedule(s=Student):
         if genEdBioBool == True:
             for g in genEdBio:
                 if c.name == g:
-                    courseEligibility.remove(c)
+                    check = False
+                    for g in preReqClasses:
+                        if c.name == g:
+                            check = True
+                    if check == False:
+                        courseEligibility.remove(c)
         if genEdCompBool == True:
             for g in genEdComp:
                 if c.name == g:
-                    courseEligibility.remove(c)
+                    check = False
+                    for g in preReqClasses:
+                        if c.name == g:
+                            check = True
+                    if check == False:
+                        courseEligibility.remove(c)
         if genEdMathBool == True:
             for g in genEdMath:
                 if c.name == g:
-                    courseEligibility.remove(c)
+                    check = False
+                    for g in preReqClasses:
+                        if c.name == g:
+                            check = True
+                    if check == False:
+                        courseEligibility.remove(c)
         if genEdHumBool == True:
             for g in genEdHum:
                 if c.name == g:
-                    courseEligibility.remove(c)
+                    check = False
+                    for g in preReqClasses:
+                        if c.name == g:
+                            check = True
+                    if check == False:
+                        courseEligibility.remove(c)
         if genEdSocBool == True:
             for g in genEdSoc:
                 if c.name == g:
-                    courseEligibility.remove(c)
-        if elecNum >= 5:
-            for g in compSciElec:
-                if c.name == g:
-                    courseEligibility.remove(c)
+                    check = False
+                    for g in preReqClasses:
+                        if c.name == g:
+                            check = True
+                    if check == False:
+                        courseEligibility.remove(c)
 
     courseList = courseEligibility
 
