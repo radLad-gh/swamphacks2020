@@ -3,8 +3,8 @@ import student
 
 def makeSchedule(s=student.Student):
     choice = input("Would you like to create a schedule for you with default settings or would you like to input "
-                       "manual settings?")
-    
+                       "manual settings? ")
+
     if choice == "manual":
 
         print(
@@ -76,3 +76,9 @@ def updateCourseRanking(course, courseList):
             c.curRank -= course.difficulty
         if course.difficulty > c.difficulty:
             c.curRank -= 2 * (c.difficulty - course.difficulty)
+
+def changeSchedule(schedule, courseList):
+    print("Current Schedule:")
+    for c in schedule:
+        print(c.name)
+    choice = input("What class would you like to add?")

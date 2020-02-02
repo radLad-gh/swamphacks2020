@@ -70,6 +70,8 @@ conn.close()
 for i in classList:
     print(i.prereq)
 
+print(classList)
+
 grade = 4.0 #testing input for grade
 
 addClass(grade, myClass_01, myStudent_01)
