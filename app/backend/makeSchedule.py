@@ -58,6 +58,7 @@ def makeSchedule(s=Student):
                    "CAP 5705", "CNT 5106C", "COP 5416", "CIS 4930", "CNT 6885", "CDA 5636", "CDA 4630", "CIS 6930",
                    "CAP 5100", "CEN 4721", "CIS 5371", "CAP 5771", "CAP 4770", "CAP 6610", "CAP 6516", "CIS 6930",
                    "CIS 6930", "COP 5556", "CIS 4914", "CEN 5035", "CIS 4930", "CEN 4722"]
+    preReqClasses = ["CHM 2045", "CHM 2046", "PHY 2048", "PHY 2049", "MAC 2311", "MAC 2312"]
 
     genEdBioBool, genEdCompBool, genEdHumBool, genEdMathBool, genEdSocBool = False
     coursesTaken = []
@@ -102,23 +103,48 @@ def makeSchedule(s=Student):
         if genEdBioBool == True:
             for g in genEdBio:
                 if c.name == g:
-                    courseEligibility.remove(c)
+                    check = False
+                    for g in preReqClasses:
+                        if c.name == g:
+                            check = True
+                    if check == False:
+                        courseEligibility.remove(c)
         if genEdCompBool == True:
             for g in genEdComp:
                 if c.name == g:
-                    courseEligibility.remove(c)
+                    check = False
+                    for g in preReqClasses:
+                        if c.name == g:
+                            check = True
+                    if check == False:
+                        courseEligibility.remove(c)
         if genEdMathBool == True:
             for g in genEdMath:
                 if c.name == g:
-                    courseEligibility.remove(c)
+                    check = False
+                    for g in preReqClasses:
+                        if c.name == g:
+                            check = True
+                    if check == False:
+                        courseEligibility.remove(c)
         if genEdHumBool == True:
             for g in genEdHum:
                 if c.name == g:
-                    courseEligibility.remove(c)
+                    check = False
+                    for g in preReqClasses:
+                        if c.name == g:
+                            check = True
+                    if check == False:
+                        courseEligibility.remove(c)
         if genEdSocBool == True:
             for g in genEdSoc:
                 if c.name == g:
-                    courseEligibility.remove(c)
+                    check = False
+                    for g in preReqClasses:
+                        if c.name == g:
+                            check = True
+                    if check == False:
+                        courseEligibility.remove(c)
         if elecNum >= 5:
             for g in compSciElec:
                 if c.name == g:
@@ -212,4 +238,3 @@ def changeSchedule(schedule, courseList):
     print("New Schedule:")
     for c in schedule:
         print(c.name)
-
