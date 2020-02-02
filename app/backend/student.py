@@ -11,6 +11,7 @@ Available functions:
     clearNextClassesList
 """
 import sqlite3
+import difflib
 
 class classData(object): #Constructor for classes
     def __init__(self, name, category, credits, prereq, coreq):
@@ -61,11 +62,14 @@ classList = []
 conn = sqlite3.connect('userDatabase.sqlite')
 cursor = conn.cursor()
 print("Opened database successfully")
+c = 0
 for row in cursor.execute("SELECT courses, credits, prereqs, coreqs from courses"):
-    #print("Course = ", row[0], "Credits = ", row[1], "Prereqs = ", row[2], "Coreqs = ", row[3])
+    print("Course = ", row[0], "Credits = ", row[1], "Prereqs = ", row[2], "Coreqs = ", row[3])
     classList.append(classData(row[0], 'Programming', row[1], [row[2]], row[3]))
+    c += 1
 conn.commit()
 conn.close()
+print("FIND ME: " + str(c))
 
 def splitAnd(arr):
     andLocator = arr.find('AND')
@@ -169,10 +173,12 @@ def pathToCourse(c=classData): #Recursive function that finds all prerequisites 
             else:
                 continue
 
+pathToCourse(classList[2])
+print(classList[2].name)
 print("prereqlist")
-"""for i in range(len(prereqList)):
+for i in range(len(prereqList)):
     print(prereqList[i].name)
-pathToCourse(myClass_04)"""
+
 
 def clearPrereqList():
     global prereqList
@@ -184,7 +190,7 @@ firstRun = True #Boolean for nextSteps
 def nextClass(_classCheck, _classInput, _next_class):
     print("did i get here")
     for j in _classInput:
-        if j.name == _classCheck:
+        if (j.name[:3] + j.name[4:]) == (_classCheck[:3] + _classCheck[4:]):
             print("there already")
             continue
         else:
@@ -209,8 +215,11 @@ def nextSteps(c=classData): #Recursive function that adds next classes to an arr
                         else:
                             continue
                 else:
-                    print("right else ", id(j), " checking ", id(checkClass))
-                    if j.encode(encoding='UTF-8').strip() == checkClass.encode(encoding='UTF-8').strip():
+                    temp1 =  j[:3] + j[4:]
+                    temp2 = checkClass[:3] + checkClass[4:]
+
+                    print("right else", temp1, "checking", temp2)
+                    if temp1 == temp2:
                         print("they equal")
                         nextClass(checkClass, nextClasses, i)
                     else:
@@ -224,7 +233,7 @@ def nextSteps(c=classData): #Recursive function that adds next classes to an arr
             if firstRun == False:
                 #nextClass(checkClass, nextClasses, next_class)
                 for j in nextClasses:
-                    if j.name == checkClass:
+                    if (j.name[:3] + j.name[4:]) == (checkClass[:3] + checkClass[4:]):
                         continue
                     else:
                         nextClasses.append(next_class)
