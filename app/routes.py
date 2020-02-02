@@ -1,14 +1,12 @@
 from flask import render_template, flash, redirect
 from app import app
 from app.forms import LoginForm, RegisterForm
-from app.backend import addUser
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
-
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key = True)
@@ -27,15 +25,20 @@ def login():
     loginForm = LoginForm()
     registerForm = RegisterForm()
     if loginForm.validate_on_submit():
+
+        #The Mock functionality for the presentation
+        if(loginForm.username.data, loginForm.password.data) == ("username", "password"):
+            redirect("/")
+        """
         user = User.query.filter_by(username=loginForm.username.data).first()
         login_user(user)
         flash("Login requested for user {}").format(loginForm.username.data)
+        """
         return redirect("/")
 
-    #print(registerForm.validate_on_submit())
-    if registerForm.validate_on_submit():
+
+    elif registerForm.validate_on_submit():
         addUser(registerForm.registeruser.data, registerForm.registerpassword.data, registerForm.registername.data)
-        flash("Registering")
         return redirect("/")
 
     return render_template("login.html", form=loginForm, registerform=registerForm)
