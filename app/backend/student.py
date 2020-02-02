@@ -9,7 +9,7 @@ Available functions:
     clearPrereqList
     nextSteps
     clearNextClassesList
-    change again
+    change again again
 """
 import sqlite3
 
