@@ -5,12 +5,6 @@ from app import app
 from app.forms import LoginForm
 import sqlite3
 
-con = sqlite3.connect("backend/userDatabase.sqlite")
-cursor = conn.cursor()
-
-sqlite_insert_query = """INSERT INTO conn (userID, password, firstName,
-lastName) VALUES ()""".format
-
 
 @app.route("/")
 def index():
