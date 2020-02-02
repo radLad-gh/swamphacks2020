@@ -70,25 +70,23 @@ conn.close()
 def splitAnd(arr):
     andLocator = arr.find('AND')
     if andLocator == -1:
-        print("no AND")
+        return arr
     else:
         test = arr.replace("(", "").replace(")", "").split(" AND ")
         return test
 
-splitAnd(classList[13].prereq[0])
-
-
 def splitOr(arr):
     orLocator = arr.find('OR')
     if orLocator == -1:
-        print("no AND")
+        return arr
     else:
         test = arr.replace("(", "").replace(")", "").split(" OR ")
         return test
 
 tempPrereqArr = []
-
 def splitOrAnd(arr):
+    if arr == None:
+        return arr
     andLocator = arr.find('AND')
     orLocator = arr.find('OR')
     if andLocator != -1 and orLocator != -1:
@@ -96,19 +94,29 @@ def splitOrAnd(arr):
         for i in temp:
             temp = splitOr(i)
             tempPrereqArr.append(temp)
-
-    if andLocator == -1:
-        print("no AND")
-    else:
+        return tempPrereqArr
+    elif andLocator != -1 and orLocator == -1:
         test = arr.replace("(", "").replace(")", "").split(" AND ")
-        print(test)
-    if orLocator == -1:
-        print("no AND")
-    else:
+        return test
+    elif orLocator != -1 and andLocator == -1:
         test = arr.replace("(", "").replace(")", "").split(" OR ")
-        print(test)
+        return test
+    else:
+        return arr
 
-splitOrAnd(classList[13].prereq[0])
+
+classList.pop(0)
+counter = 0
+for i in classList:
+    tempPrereqArr = []
+    i.prereq = splitOrAnd(i.prereq[0])
+    counter += 1
+
+counter = 0
+for i in classList:
+    print(str(counter) + ". " + str(i.name) + " "  + str(i.prereq))
+
+    counter += 1
 
 print("Prereqs: " + str(tempPrereqArr))
 
@@ -195,7 +203,6 @@ def clearNextClassesList():
     global nextClasses
     nextClasses = []
 
-print("Class 46: " + classList[53].name + " with prereq's: "+ classList[53].prereq[0])
 nextSteps(classList[53])
 print(nextClassesCounter)
 
