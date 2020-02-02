@@ -67,20 +67,50 @@ for row in cursor.execute("SELECT courses, credits, prereqs, coreqs from courses
 conn.commit()
 conn.close()
 
-print(classList[2].prereq[0])
-test = classList[2].prereq[0].replace("(", "").replace(")", "").split(" AND ")
-print(test)
-andLocator = classList[2].prereq[0].find('OR')
-tempPrereq = []
-print(andLocator)
-if andLocator == -1:
-    print("no OR")
-else:
-    tempPrereq.append(classList[2].prereq[0][1:9])
-    tempPrereq.append(classList[2].prereq[0][13:21])
-    print(tempPrereq[0])
-    print(tempPrereq[1])
+def splitAnd(arr):
+    andLocator = arr.find('AND')
+    if andLocator == -1:
+        print("no AND")
+    else:
+        test = arr.replace("(", "").replace(")", "").split(" AND ")
+        return test
 
+splitAnd(classList[13].prereq[0])
+
+
+def splitOr(arr):
+    orLocator = arr.find('OR')
+    if orLocator == -1:
+        print("no AND")
+    else:
+        test = arr.replace("(", "").replace(")", "").split(" OR ")
+        return test
+
+tempPrereqArr = []
+
+def splitOrAnd(arr):
+    andLocator = arr.find('AND')
+    orLocator = arr.find('OR')
+    if andLocator != -1 and orLocator != -1:
+        temp = splitAnd(arr)
+        for i in temp:
+            temp = splitOr(i)
+            tempPrereqArr.append(temp)
+
+    if andLocator == -1:
+        print("no AND")
+    else:
+        test = arr.replace("(", "").replace(")", "").split(" AND ")
+        print(test)
+    if orLocator == -1:
+        print("no AND")
+    else:
+        test = arr.replace("(", "").replace(")", "").split(" OR ")
+        print(test)
+
+splitOrAnd(classList[13].prereq[0])
+
+print("Prereqs: " + str(tempPrereqArr))
 
 grade = 4.0 #testing input for grade
 
