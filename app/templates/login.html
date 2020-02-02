@@ -17,6 +17,7 @@
         <button type="button" class="toggle-btn" onclick="register()">Register</button>
     </div>
     <form action = "" method = "post" id="login" class="input-group">
+        {{form.csrf_token}}
         <p>{{form.username(class_="input-field",size=32, placeholder="Enter your username")}}</p>
         <p>{{form.password(class_="input-field",
         size=32, placeholder = "Enter your password")}}
@@ -24,12 +25,16 @@
         <p>{{form.submit(class_="submit-btn")}}</p>
     </form>
     <form action = "" method = "post" id="register" class="input-group">
-        <p>{{form.registername(class_="input-field",size=32, placeholder="Enter your full name")}}</p>
-        <p>{{form.registeruser(class_="input-field",size=32, placeholder="Enter a username")}} </p>
-        <p>{{form.registerpassword(class_="input-field",
+        {{registerform.csrf_token}}
+        <p>{{registerform.registername(class_="input-field",size=32, placeholder="Enter your full name")}}</p>
+        <p>{{registerform.registeruser(class_="input-field",size=32, placeholder="Enter a username")}} </p>
+        <p>{{registerform.registerpassword(class_="input-field",
         size=32, placeholder = "Enter a password")}}
         </p>
-        <p>{{form.submitregister(class_="submit-btn")}}</p>
+        <p>{{registerform.confirm(class_="input-field",
+        size=32, placeholder = "Confirm password")}}
+        </p>
+        <p>{{registerform.submitregister(class_="submit-btn")}}</p>
     </form>
 
 </div>
