@@ -190,12 +190,25 @@ nextClassesCounter = 0
 firstRun = True #Boolean for nextSteps
 
 def nextClass(_classCheck, _classInput, _next_class):
-    for j in _classInput:
-        if (j.name[:3] + j.name[4:]) == (_classCheck[:3] + _classCheck[4:]):
-            continue
-        else:
-            nextClasses.append(_next_class)
-            break
+    print("hello")
+    print(len(_classInput))
+    if len(_classInput) == 0:
+        print("ADDED FIRST", _next_class.name)
+        nextClasses.append(_next_class)
+    else:
+        for j in _classInput:
+            print("J", j.name)
+            if isinstance(_classInput, classData):
+                print("HERE", j.name, _classCheck)
+
+            if (j.name[:3] + j.name[4:]) == (_classCheck[:3] + _classCheck[4:]):
+                print("CONTINUE")
+                continue
+            else:
+                nextClasses.append(_next_class)
+                print("Next class", _classInput[0])
+                print("BREAK")
+                break
 
 def nextSteps(c=classData): #Recursive function that adds next classes to an array
     checkClass = c.name
@@ -206,8 +219,8 @@ def nextSteps(c=classData): #Recursive function that adds next classes to an arr
             for j in i.prereq:
                 if isinstance(j, list):
                     for m in j:
-                        if m == checkClass:
-                            nextClass(checkClass, nextClasses, m)
+                        if (m[:3] + m[4:]) == (checkClass[:3] + checkClass[4:]):
+                            nextClass(checkClass, nextClasses, i)
                         else:
                             continue
                 else:
@@ -235,28 +248,17 @@ def nextSteps(c=classData): #Recursive function that adds next classes to an arr
             else:
                 nextClasses.append(next_class)
             firstRun = True
+            print("NEXT CASE:", next_class.name)
             nextSteps(next_class)
 
 def clearNextClassesList():
     global nextClasses
     nextClasses = []
 
-print("TEST CASE: " + str(classList[45].name))
-nextSteps(classList[45])
+print("TEST CASE: " + str(classList[47].name))
+nextSteps(classList[50])
 
-"""
-count1 = 0
-while count1 < len(classList):
-    nextSteps(classList[count1])
-    count = 0
-    print("NEW NEXT STEPS:", count1, classList[count1].name)
-    while count < len(nextClasses):
-        print(count + 1)
-        if isinstance(nextClasses[count], str):
-            print(nextClasses[count])
-        else:
-            print(nextClasses[count].name)
-        count += 1
-    nextClasses = []
-    count1 += 1
-"""
+count = 0
+while count < len(nextClasses):
+    print(nextClasses[count].name)
+    count += 1
