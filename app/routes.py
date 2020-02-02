@@ -5,6 +5,8 @@ from app.backend import addUser
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from flask_sqlalchemy import SQLAlchemy
 
+
+
 db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -14,13 +16,15 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String(30), unique=True)
 
+db.create_all()
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
 @app.route("/")
 def index():
-    return render_template("Reggie.html")
+    return render_template("home.html")
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
@@ -30,6 +34,7 @@ def login():
         user = User.query.filter_by(username=loginForm.username.data).first()
         login_user(user)
         flash("Login requested for user {}").format(loginForm.username.data)
+        print('it worked')
         return redirect("/")
 
     #print(registerForm.validate_on_submit())
@@ -47,7 +52,6 @@ def logout():
     return 'You are now logged out!'
 
 @app.route('/home')
-@login_required
+#@login_required
 def home():
-
-    return 'The curent user is ' + current_user.username
+    return render_template("home.html")
