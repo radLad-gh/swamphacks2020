@@ -2,6 +2,7 @@ from .student import Student
 from .student import classData
 from .student import nextSteps
 from .student import nextClass
+from .student import nextClasses
 
 def makeSchedule(s=Student):
     choice = input("Would you like to create a schedule for you with default settings or would you like to input "
@@ -63,8 +64,8 @@ def makeSchedule(s=Student):
     preReqClasses = ["CHM 2045", "CHM 2046", "PHY 2048", "PHY 2049", "MAC 2311", "MAC 2312"]
 
     genEdBioBool, genEdCompBool, genEdHumBool, genEdMathBool, genEdSocBool = False
-    coursesTaken = s.classes
 
+    coursesTaken = s.classes
 
     courseEligibility = []
     # list of all courses student is eligible to take
@@ -160,8 +161,8 @@ def makeSchedule(s=Student):
 
 
     for c in courseList:
-        courseRanking = coursePriorityIndex * c.difficulty + pastSuccessIndex * s.getAvg(c.category) + bottleneckIndex
-        # * number of classes in CourseList this course is a prereq for
+        numPrereqClasses = len(nextClasses)
+        courseRanking = coursePriorityIndex * c.difficulty + pastSuccessIndex * s.getAvg(c.category) + bottleneckIndex * numPrereqClasses
         c.curRank = courseRanking
 
     courseList.sort(key=lambda x: x.curRank, reverse=True)
