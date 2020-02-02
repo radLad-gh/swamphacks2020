@@ -9,6 +9,7 @@ Available functions:
     clearPrereqList
     nextSteps
     clearNextClassesList
+    change again again
 """
 import sqlite3
 
@@ -66,6 +67,8 @@ for row in cursor.execute("SELECT courses, credits, prereqs, coreqs from courses
     classList.append(classData(row[0], 'Programming', row[1], [row[2]], row[3]))
 conn.commit()
 conn.close()
+for i in classList:
+    print(i.prereq)
 
 grade = 4.0 #testing input for grade
 
@@ -89,8 +92,6 @@ addClass(4.0, myClass_02, myStudent_01)
 addClass(3.0, myClass_03, myStudent_01)
 addClass(3.0, myClass_04, myStudent_01)
 print("Math Avg: " + str(myStudent_01.getAvg("Math")))
-
-classList = [myClass_01, myClass_02, myClass_03, myClass_04] #Temporary class list to test instead of database
 
 def hasPrereq(c=classData):
     if c.prereq == '':
