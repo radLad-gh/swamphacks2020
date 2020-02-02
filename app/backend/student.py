@@ -64,7 +64,7 @@ cursor = conn.cursor()
 print("Opened database successfully")
 c = 0
 for row in cursor.execute("SELECT courses, credits, prereqs, coreqs, category from courses"):
-    #print("Course = ", row[0], "Credits = ", row[1], "Prereqs = ", row[2], "Coreqs = ", row[3])
+    print("Course = ", row[0], "Category =", row[4], "Credits = ", row[1], "Prereqs = ", row[2], "Coreqs = ", row[3])
     classList.append(classData(row[0], row[4], row[1], [row[2]], row[3]))
     c += 1
 conn.commit()
@@ -198,8 +198,6 @@ def nextClass(_classCheck, _classInput, _next_class):
                 continue
             else:
                 nextClasses.append(_next_class)
-                print("Next class", _classInput[0])
-                print("BREAK")
                 break
 
 def nextSteps(c=classData): #Recursive function that adds next classes to an array
@@ -240,15 +238,15 @@ def nextSteps(c=classData): #Recursive function that adds next classes to an arr
             else:
                 nextClasses.append(next_class)
             firstRun = True
-            print("NEXT CASE:", next_class.name)
             nextSteps(next_class)
 
 def clearNextClassesList():
     global nextClasses
     nextClasses = []
 
-print("TEST CASE: " + str(classList[46].name))
-nextSteps(classList[46])
+print("TEST CASE: " + str(classList[45].name))
+print(classList[45])
+nextSteps(classList[45])
 
 count = 0
 while count < len(nextClasses):
