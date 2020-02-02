@@ -9,9 +9,9 @@ Available functions:
     clearPrereqList
     nextSteps
     clearNextClassesList
-    changez
 """
 import sqlite3
+import difflib
 
 class classData(object): #Constructor for classes
     def __init__(self, name, category, credits, prereq, coreq):
@@ -62,15 +62,67 @@ classList = []
 conn = sqlite3.connect('userDatabase.sqlite')
 cursor = conn.cursor()
 print("Opened database successfully")
+c = 0
 for row in cursor.execute("SELECT courses, credits, prereqs, coreqs from courses"):
-    print("Course = ", row[0], "Credits = ", row[1], "Prereqs = ", row[2], "Coreqs = ", row[3])
+    #print("Course = ", row[0], "Credits = ", row[1], "Prereqs = ", row[2], "Coreqs = ", row[3])
     classList.append(classData(row[0], 'Programming', row[1], [row[2]], row[3]))
+    c += 1
 conn.commit()
 conn.close()
-for i in classList:
-    print(i.prereq)
+print("FIND ME: " + str(c))
 
-print(classList)
+def splitAnd(arr):
+    andLocator = arr.find('AND')
+    if andLocator == -1:
+        return arr
+    else:
+        test = arr.replace("(", "").replace(")", "").split(" AND ")
+        return test
+
+def splitOr(arr):
+    orLocator = arr.find('OR')
+    if orLocator == -1:
+        return arr
+    else:
+        test = arr.replace("(", "").replace(")", "").split(" OR ")
+        return test
+
+tempPrereqArr = []
+def splitOrAnd(arr):
+    if arr == None:
+        return arr
+    andLocator = arr.find('AND')
+    orLocator = arr.find('OR')
+    if andLocator != -1 and orLocator != -1:
+        temp = splitAnd(arr)
+        for i in temp:
+            temp = splitOr(i)
+            tempPrereqArr.append(temp)
+        return tempPrereqArr
+    elif andLocator != -1 and orLocator == -1:
+        test = arr.replace("(", "").replace(")", "").split(" AND ")
+        return test
+    elif orLocator != -1 and andLocator == -1:
+        test = arr.replace("(", "").replace(")", "").split(" OR ")
+        return test
+    else:
+        return arr
+
+
+classList.pop(0)
+counter = 0
+for i in classList:
+    tempPrereqArr = []
+    i.prereq = splitOrAnd(i.prereq[0])
+    counter += 1
+
+counter = 0
+for i in classList:
+    print(str(counter) + ". " + str(i.name) + " "  + str(i.prereq))
+
+    counter += 1
+
+print("Prereqs: " + str(tempPrereqArr))
 
 grade = 4.0 #testing input for grade
 
@@ -121,13 +173,12 @@ def pathToCourse(c=classData): #Recursive function that finds all prerequisites 
             else:
                 continue
 
-
-print(classList[8].name)
-print(classList[8].prereq)
+pathToCourse(classList[2])
+print(classList[2].name)
 print("prereqlist")
 for i in range(len(prereqList)):
     print(prereqList[i].name)
-pathToCourse(myClass_04)
+
 
 def clearPrereqList():
     global prereqList
@@ -135,35 +186,77 @@ def clearPrereqList():
 
 nextClasses = [] #Temporary array for classes that open up after taking a certain class
 nextClassesCounter = 0
+
 firstRun = True #Boolean for nextSteps
+
+def nextClass(_classCheck, _classInput, _next_class):
+    for j in _classInput:
+        if (j.name[:3] + j.name[4:]) == (_classCheck[:3] + _classCheck[4:]):
+            continue
+        else:
+            nextClasses.append(_next_class)
+            break
+
 def nextSteps(c=classData): #Recursive function that adds next classes to an array
     checkClass = c.name
+    c = 0
     for i in classList:
-        if i.prereq == checkClass:
+        c += 1
+        if isinstance(i.prereq, list):
+            for j in i.prereq:
+                if isinstance(j, list):
+                    for m in j:
+                        if m == checkClass:
+                            nextClass(checkClass, nextClasses, m)
+                        else:
+                            continue
+                else:
+                    temp1 =  j[:3] + j[4:]
+                    temp2 = checkClass[:3] + checkClass[4:]
+
+                    if temp1 == temp2:
+                        nextClass(checkClass, nextClasses, i)
+                    else:
+                        continue
+        elif i.prereq == checkClass:
             next_class = i
+
             global nextClassesCounter
             nextClassesCounter += 1
+            global firstRun
             if firstRun == False:
+                #nextClass(checkClass, nextClasses, next_class)
                 for j in nextClasses:
-                    if j.name == checkClass:
+                    if (j.name[:3] + j.name[4:]) == (checkClass[:3] + checkClass[4:]):
                         continue
                     else:
                         nextClasses.append(next_class)
                         break
             else:
                 nextClasses.append(next_class)
+            firstRun = True
             nextSteps(next_class)
 
 def clearNextClassesList():
     global nextClasses
     nextClasses = []
 
-print("Class 46: " + classList[53].name + " with prereq's: "+ classList[53].prereq[0])
-nextSteps(classList[53])
-print(nextClassesCounter)
+print("TEST CASE: " + str(classList[45].name))
+nextSteps(classList[45])
 
-for i in range(len(nextClasses)):
-    print(nextClasses[i].name)
-
-for i in range(len(prereqList)):
-    print(prereqList[i].name)
+"""
+count1 = 0
+while count1 < len(classList):
+    nextSteps(classList[count1])
+    count = 0
+    print("NEW NEXT STEPS:", count1, classList[count1].name)
+    while count < len(nextClasses):
+        print(count + 1)
+        if isinstance(nextClasses[count], str):
+            print(nextClasses[count])
+        else:
+            print(nextClasses[count].name)
+        count += 1
+    nextClasses = []
+    count1 += 1
+"""

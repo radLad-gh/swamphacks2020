@@ -44,6 +44,7 @@ def makeSchedule(s=student.Student):
     curCreditNum = 0
 
     courseList = []
+
     # CourseList is a list of courses which the student must take to graduate AND is eligible to take
 
     for c in courseList:
@@ -67,6 +68,10 @@ def makeSchedule(s=student.Student):
             curCreditNum += courseList[i].credits
             course = courseList[i].pop
             updateCourseRanking(course, courseList)
+    for c in schedule:
+        c.curRank = 0
+    for c in courseList:
+        c.curRank = 0
     return schedule
 
 
@@ -76,9 +81,22 @@ def updateCourseRanking(course, courseList):
             c.curRank -= course.difficulty
         if course.difficulty > c.difficulty:
             c.curRank -= 2 * (c.difficulty - course.difficulty)
+    courseList.sort(key=lambda x: x.curRank, reverse=True)
 
 def changeSchedule(schedule, courseList):
     print("Current Schedule:")
     for c in schedule:
         print(c.name)
-    choice = input("What class would you like to add?")
+    choice = input("What class would you like to replace? (in format XXX ####")
+    for c in schedule:
+        if choice == c.name:
+            courseList.append(c)
+            schedule.remove(c)
+            break
+    choice2 = input("What class would you like to add? (in format XXX ####")
+    for c in courseList:
+        if choice == c.name:
+            schedule.append(c)
+            courseList.remove(c)
+            break
+
