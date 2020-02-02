@@ -170,9 +170,9 @@ def pathToCourse(c=classData): #Recursive function that finds all prerequisites 
                 continue
 
 print("prereqlist")
-for i in range(len(prereqList)):
+"""for i in range(len(prereqList)):
     print(prereqList[i].name)
-pathToCourse(myClass_04)
+pathToCourse(myClass_04)"""
 
 def clearPrereqList():
     global prereqList
@@ -181,14 +181,48 @@ def clearPrereqList():
 nextClasses = [] #Temporary array for classes that open up after taking a certain class
 nextClassesCounter = 0
 firstRun = True #Boolean for nextSteps
+def nextClass(_classCheck, _classInput, _next_class):
+    print("did i get here")
+    for j in _classInput:
+        if j.name == _classCheck:
+            print("there already")
+            continue
+        else:
+            print("added")
+            nextClasses.append(_next_class)
+            break
+
 def nextSteps(c=classData): #Recursive function that adds next classes to an array
     checkClass = c.name
+    c = 0
     for i in classList:
-        if i.prereq == checkClass:
+        print(str(c) + ". I name: " + str(i.name))
+        c += 1
+        if isinstance(i.prereq, list):
+            for j in i.prereq:
+                print("I: " + str(j))
+                if isinstance(j, list):
+                    for m in j:
+                        print("M: " + m)
+                        if m == checkClass:
+                            nextClass(checkClass, nextClasses, m)
+                        else:
+                            continue
+                else:
+                    print("right else ", id(j), " checking ", id(checkClass))
+                    if j.encode(encoding='UTF-8').strip() == checkClass.encode(encoding='UTF-8').strip():
+                        print("they equal")
+                        nextClass(checkClass, nextClasses, i)
+                    else:
+                        print("they not equal")
+                        continue
+        elif i.prereq == checkClass:
             next_class = i
+
             global nextClassesCounter
             nextClassesCounter += 1
             if firstRun == False:
+                #nextClass(checkClass, nextClasses, next_class)
                 for j in nextClasses:
                     if j.name == checkClass:
                         continue
@@ -197,17 +231,24 @@ def nextSteps(c=classData): #Recursive function that adds next classes to an arr
                         break
             else:
                 nextClasses.append(next_class)
+            print("TEST CHANGE: " + str(next_class.name))
             nextSteps(next_class)
 
 def clearNextClassesList():
     global nextClasses
     nextClasses = []
 
-nextSteps(classList[53])
+print("TEST CASE: " + str(classList[48].name))
+nextSteps(classList[48])
+print("NEXT CLASSES: " + str(nextClasses[7]))
 print(nextClassesCounter)
 
-for i in range(len(nextClasses)):
-    print(nextClasses[i].name)
+count = 0
+while count < 17:
+    print(count)
+    if isinstance(nextClasses[count], str):
+        print(nextClasses[count])
+    else:
+        print(nextClasses[count].name)
+    count += 1
 
-for i in range(len(prereqList)):
-    print(prereqList[i].name)
