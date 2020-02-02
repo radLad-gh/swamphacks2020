@@ -1,3 +1,4 @@
+#hi i'm michel
 import sqlite3
 conn = sqlite3.connect('backend/userDatabase.sqlite')
 cursor = conn.cursor()
