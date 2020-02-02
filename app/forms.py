@@ -15,3 +15,16 @@ class RegisterForm(FlaskForm):
     registerpassword = PasswordField("Register Full Name", [InputRequired(), EqualTo('confirm', message='Passwords must match.')])
     confirm = PasswordField('Repeat Password')
     submitregister = SubmitField("Register")
+
+class PresentationForm(FlaskForm):
+    course1code = "COP3502"
+    course2code = "MAC2311"
+    course3code = "CHM2045"
+    course4code = "IDS1161"
+    
+    course1name = "Programming Fundamentals 1"
+    course2name = "Calculus 1"
+    course3name = "Chemistry 1"
+    course4name = "What is the Good Life?"
+
+

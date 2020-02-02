@@ -2,7 +2,7 @@ import sqlite3
 
 
 def addUser(userid, password, fullname):
-    conn = sqlite3.connect('/Users/michel/Desktop/swamphacks2020/app/backend/userDatabase.sqlite')
+    conn = sqlite3.connect('/home/mahan/Programming/swamphacks2020/app/backend/userDatabase.sqlite')
     cursor = conn.cursor()
 
     names = fullname.split(" ")
@@ -14,5 +14,5 @@ def addUser(userid, password, fullname):
     cursor.close()
 
 def getUser(userid):
-    conn = sqlite3.connect('/Users/michel/Desktop/swamphacks2020/app/backend/userDatabase.sqlite')
+    conn = sqlite3.connect('/home/mahan/Programming/swamphacks2020/app/backend/userDatabase.sqlite')
     cursor = conn.cursor()
