@@ -1,5 +1,7 @@
 from .student import Student
 from .student import classData
+from .student import nextSteps
+from .student import nextClass
 
 def makeSchedule(s=Student):
     choice = input("Would you like to create a schedule for you with default settings or would you like to input "
@@ -61,11 +63,13 @@ def makeSchedule(s=Student):
     preReqClasses = ["CHM 2045", "CHM 2046", "PHY 2048", "PHY 2049", "MAC 2311", "MAC 2312"]
 
     genEdBioBool, genEdCompBool, genEdHumBool, genEdMathBool, genEdSocBool = False
-    coursesTaken = []
-    # list of all courses student has taken
+    coursesTaken = s.classes
+
 
     courseEligibility = []
     # list of all courses student is eligible to take
+    for l in coursesTaken:
+        courseEligibility.append(nextSteps(l))
 
     elecNum = 0
     for c in coursesTaken:

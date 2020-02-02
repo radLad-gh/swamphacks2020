@@ -63,13 +63,14 @@ conn = sqlite3.connect('userDatabase.sqlite')
 cursor = conn.cursor()
 print("Opened database successfully")
 c = 0
-for row in cursor.execute("SELECT courses, credits, prereqs, coreqs from courses"):
+for row in cursor.execute("SELECT courses, credits, prereqs, coreqs, category from courses"):
     #print("Course = ", row[0], "Credits = ", row[1], "Prereqs = ", row[2], "Coreqs = ", row[3])
-    classList.append(classData(row[0], 'Programming', row[1], [row[2]], row[3]))
+    classList.append(classData(row[0], row[4], row[1], [row[2]], row[3]))
     c += 1
 conn.commit()
 conn.close()
 print("FIND ME: " + str(c))
+
 
 def splitAnd(arr):
     andLocator = arr.find('AND')
@@ -109,6 +110,7 @@ def splitOrAnd(arr):
         return arr
 
 
+
 classList.pop(0)
 counter = 0
 for i in classList:
@@ -136,15 +138,6 @@ def printClass(s=Student): #Placeholder to show class information
     print("Corequisite/s: " + s.classes[0].coreq)
     print("Grade: " + str(s.classes[0].grade))
 
-printClass(myStudent_01)
-print("Programming Avg: " + str(myStudent_01.getAvg("Programming"))) #TEST CASE
-myClass_02 = classData('MAC1105', 'Math', 3, '', '')
-myClass_03 = classData('MAC2312', 'Math', 3, 'MAC1105', '')
-myClass_04 = classData('MAC2313', 'Math', 3, 'MAC2312', '')
-
-addClass(4.0, myClass_02, myStudent_01)
-addClass(3.0, myClass_03, myStudent_01)
-addClass(3.0, myClass_04, myStudent_01)
 print("Math Avg: " + str(myStudent_01.getAvg("Math")))
 
 def hasPrereq(c=classData):
