@@ -9,7 +9,6 @@ Available functions:
     clearPrereqList
     nextSteps
     clearNextClassesList
-    :D
 """
 import sqlite3
 
@@ -63,14 +62,25 @@ conn = sqlite3.connect('userDatabase.sqlite')
 cursor = conn.cursor()
 print("Opened database successfully")
 for row in cursor.execute("SELECT courses, credits, prereqs, coreqs from courses"):
-    print("Course = ", row[0], "Credits = ", row[1], "Prereqs = ", row[2], "Coreqs = ", row[3])
+    #print("Course = ", row[0], "Credits = ", row[1], "Prereqs = ", row[2], "Coreqs = ", row[3])
     classList.append(classData(row[0], 'Programming', row[1], [row[2]], row[3]))
 conn.commit()
 conn.close()
-for i in classList:
-    print(i.prereq)
 
-print(classList)
+print(classList[2].prereq[0])
+test = classList[2].prereq[0].replace("(", "").replace(")", "").split(" AND ")
+print(test)
+andLocator = classList[2].prereq[0].find('OR')
+tempPrereq = []
+print(andLocator)
+if andLocator == -1:
+    print("no OR")
+else:
+    tempPrereq.append(classList[2].prereq[0][1:9])
+    tempPrereq.append(classList[2].prereq[0][13:21])
+    print(tempPrereq[0])
+    print(tempPrereq[1])
+
 
 grade = 4.0 #testing input for grade
 
@@ -121,9 +131,6 @@ def pathToCourse(c=classData): #Recursive function that finds all prerequisites 
             else:
                 continue
 
-
-print(classList[8].name)
-print(classList[8].prereq)
 print("prereqlist")
 for i in range(len(prereqList)):
     print(prereqList[i].name)
