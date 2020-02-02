@@ -90,6 +90,8 @@ addClass(3.0, myClass_03, myStudent_01)
 addClass(3.0, myClass_04, myStudent_01)
 print("Math Avg: " + str(myStudent_01.getAvg("Math")))
 
+classList = [myClass_01, myClass_02, myClass_03, myClass_04] #Temporary class list to test instead of database
+
 def hasPrereq(c=classData):
     if c.prereq == '':
         return False
@@ -115,10 +117,14 @@ def pathToCourse(c=classData): #Recursive function that finds all prerequisites 
                 pathToCourse(i)
             else:
                 continue
-pathToCourse(classList[47])
+
+
+print(classList[8].name)
+print(classList[8].prereq)
 print("prereqlist")
 for i in range(len(prereqList)):
     print(prereqList[i].name)
+pathToCourse(myClass_04)
 
 def clearPrereqList():
     global prereqList
@@ -156,3 +162,5 @@ print(nextClassesCounter)
 for i in range(len(nextClasses)):
     print(nextClasses[i].name)
 
+for i in range(len(prereqList)):
+    print(prereqList[i].name)
