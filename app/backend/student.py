@@ -71,7 +71,6 @@ conn.commit()
 conn.close()
 print("FIND ME: " + str(c))
 
-
 def splitAnd(arr):
     andLocator = arr.find('AND')
     if andLocator == -1:
@@ -109,8 +108,6 @@ def splitOrAnd(arr):
     else:
         return arr
 
-
-
 classList.pop(0)
 counter = 0
 for i in classList:
@@ -129,6 +126,16 @@ print("Prereqs: " + str(tempPrereqArr))
 grade = 4.0 #testing input for grade
 
 addClass(grade, myClass_01, myStudent_01)
+
+myStudent1 = Student("Masen")
+addClass(4.0, classList[45], myStudent1)
+addClass(4.0, classList[56], myStudent1)
+addClass(4.0, classList[59], myStudent1)
+addClass(4.0, classList[75], myStudent1)
+addClass(4.0, classList[46], myStudent1)
+addClass(4.0, classList[54], myStudent1)
+addClass(4.0, classList[58], myStudent1)
+addClass(4.0, classList[78], myStudent1)
 
 def printClass(s=Student): #Placeholder to show class information
     print("Name: " + s.classes[0].name)

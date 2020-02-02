@@ -3,6 +3,8 @@ from .student import classData
 from .student import nextSteps
 from .student import nextClass
 from .student import nextClasses
+from .student import myStudent1
+from .student import addClass
 
 def makeSchedule(s=Student):
     choice = input("Would you like to create a schedule for you with default settings or would you like to input "
